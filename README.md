@@ -1,1 +1,3 @@
-# Python-projects-
+# Python projects
+# IT Academy STEP Georgia
+# Nino Kharazishvili
