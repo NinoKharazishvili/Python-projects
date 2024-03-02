@@ -1,3 +1,5 @@
+import datetime
+
 class Book:
     def __init__(self, title, author, publication_year):
         self._title = title
@@ -46,13 +48,31 @@ class UserInterface:
 
     @staticmethod
     def add_book(manager):
-        title = UserInterface.get_input("Enter book title: ")
-        author = UserInterface.get_input("Enter author name: ")
-        year = UserInterface.get_input("Enter publication year: ")
-        #ვალიდაცია -> წელი უნდა იყოს მთელი რიცხვი
-        while not year.isdigit():
-            print("Invalid input. Please enter a valid year.")
+        while True:
+            title = UserInterface.get_input("Enter book title: ").strip()
+            if not title:
+                print("Title cannot be empty. Please enter a title.")
+            else:
+                break
+        
+        while True:
+            author = UserInterface.get_input("Enter author name: ").strip()
+            if not author:
+                print("Author name cannot be empty. Please enter an author.")
+            elif author.isdigit():
+                print("Invalid input. Author name cannot be a number.")
+            else:
+                break
+        
+        while True:
             year = UserInterface.get_input("Enter publication year: ")
+            if not year.isdigit():
+                print("Invalid input. Please enter a valid year.")
+            elif int(year) > datetime.datetime.now().year:
+                print("Invalid input. Publication year cannot be in the future.")
+            else:
+                break
+                
         manager.add_book(Book(title, author, int(year)))
 
     @staticmethod
